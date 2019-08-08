@@ -15,7 +15,6 @@ class CarouselTimeline extends React.Component {
       isClick : false
       ,startX : 0
       ,nowX : 0
-      ,currentX : 0
     }
     this.slideState = {
       currentX : 0
@@ -41,20 +40,30 @@ class CarouselTimeline extends React.Component {
   }
 
 
+///////////////////////////////////////////////////////////////////
   handleMouseDown(e) {
     console.log("handleMouseDown"+e.clientX);
     this.mouseState.isClick = true;
     this.mouseState.startX = e.clientX;
+
+    
+    e.preventDefault();
+    
   }
   handleMouseMove(e){
     if(this.mouseState.isClick) {
-      this.mouseState.nowX = e.clientX;
-      console.log("handleMouseMove");
-      this.moveTimeline(this.mouseState.nowX - this.mouseState.startX);
+      // this.mouseState.nowX = e.clientX;
+      
+      // this.tlDiv.current.style.transform="translateX("+e.clientX+"px);";
+      
+      this.tlDiv.current.style.transform="translateX("+(-e.nativeEvent.clientX)+"px)";
+      // this.moveTimeline(-1);
+      
+      console.log("handleMouseMove"+-e.nativeEvent.pageX);
+      // this.moveTimeline(this.mouseState.nowX - this.mouseState.startX);
     }
-    
-    
   }
+  
   handleMouseUp(e){
     console.log("handleMouseUp");
     this.mouseState.isClick = false;
@@ -121,12 +130,11 @@ class CarouselTimeline extends React.Component {
       <React.Fragment>
         <div className="outBox">
           <div className="innerBox" ref={this.contDiv}>
-            <div className="cardAll noselect" ref={this.tlDiv}
-              // onMouseDown ={e => this.handleMouseDown(e)}
-              // onMouseMove={e => this.handleMouseMove(e)}
-              // onMouseUp={e => this.handleMouseUp(e)}
-              // onMouseOut={e => this.handleMouseOut(e)}
+            <div className="cardAll" ref={this.tlDiv}
+              onMouseDown ={e => this.handleMouseDown(e)}
               onMouseMove={e => this.handleMouseMove(e)}
+              onMouseUp={e => this.handleMouseUp(e)}
+              onMouseOut={e => this.handleMouseOut(e)}
               >
               {cList}
             </div>
