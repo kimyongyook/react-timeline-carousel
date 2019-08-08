@@ -42,7 +42,7 @@ class CarouselTimeline extends React.Component {
 
 ///////////////////////////////////////////////////////////////////
   handleMouseDown(e) {
-    console.log("handleMouseDown"+e.clientX);
+    console.log("handleMouseDown"+e.offsetX);
     this.mouseState.isClick = true;
     this.mouseState.startX = e.clientX;
 
@@ -52,20 +52,15 @@ class CarouselTimeline extends React.Component {
   }
   handleMouseMove(e){
     if(this.mouseState.isClick) {
-      // this.mouseState.nowX = e.clientX;
+      this.mouseState.nowX = e.clientX;
       
-      // this.tlDiv.current.style.transform="translateX("+e.clientX+"px);";
-      
-      this.tlDiv.current.style.transform="translateX("+(-e.nativeEvent.clientX)+"px)";
-      // this.moveTimeline(-1);
-      
-      console.log("handleMouseMove"+-e.nativeEvent.pageX);
-      // this.moveTimeline(this.mouseState.nowX - this.mouseState.startX);
+      console.log("handleMouseMove"+e.nativeEvent.offsetX);
     }
   }
   
   handleMouseUp(e){
     console.log("handleMouseUp");
+    this.mouseState.nowX > this.mouseState.startX ? this.handleOnLeftBtn() : this.handleOnRightBtn()
     this.mouseState.isClick = false;
   }
   handleMouseOut(e){
