@@ -46,8 +46,8 @@ class CarouselTimeline extends React.Component {
   componentDidMount() {
     console.log("componentDidMount");
     
-    this.itemDiv[0].childNodes[0].setAttribute("style","width:60%; box-shadow : 0px 10px 5px rgb(124, 120, 120);");
-    this.itemDiv[0].childNodes[1].setAttribute("style","display:block; box-shadow : 10px 10px 5px rgb(124, 120, 120);");
+    this.itemDiv[0].childNodes[0].setAttribute("style","width:59%; box-shadow : 0px 5px 10px rgb(124, 120, 120);");
+    this.itemDiv[0].childNodes[1].setAttribute("style","display:block; box-shadow : 5px 5px 10px rgb(124, 120, 120);");
   }
 
   componentWillReceiveProps(nextProps){
@@ -112,8 +112,8 @@ class CarouselTimeline extends React.Component {
       this.itemDiv[this.slideState.idx+direction].childNodes[0].setAttribute("style","");
       this.itemDiv[this.slideState.idx+direction].childNodes[1].setAttribute("style","display:none;");
     }
-    this.itemDiv[this.slideState.idx].childNodes[0].setAttribute("style","width:60%; box-shadow : 0px 10px 5px rgb(124, 120, 120);");
-    this.itemDiv[this.slideState.idx].childNodes[1].setAttribute("style","display:block; box-shadow : 10px 10px 5px rgb(124, 120, 120);");
+    this.itemDiv[this.slideState.idx].childNodes[0].setAttribute("style","width:59%; box-shadow : 0px 5px 10px rgb(124, 120, 120);");
+    this.itemDiv[this.slideState.idx].childNodes[1].setAttribute("style","display:block; box-shadow : 5px 5px 10px rgb(124, 120, 120);");
   }
 
   render(){
@@ -143,7 +143,7 @@ class CarouselTimeline extends React.Component {
     return (
       <React.Fragment>
         <div className="outBox" >
-          <div className="innerBox" ref={this.contDiv}>
+          <div className="innerBox">
             <div className="cardAll" ref={this.tlDiv}>
               {cList}
             </div>
