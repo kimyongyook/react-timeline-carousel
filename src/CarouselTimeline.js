@@ -15,7 +15,6 @@ class CarouselTimeline extends React.Component {
       isClick : false
       ,startX : 0
       ,nowX : 0
-      ,currentX : 0
     }
     this.slideState = {
       currentX : 0
@@ -29,8 +28,20 @@ class CarouselTimeline extends React.Component {
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
 
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+
     this.handleOnLeftBtn = this.handleOnLeftBtn.bind(this);
     this.handleOnRightBtn = this.handleOnRightBtn.bind(this);
+  }
+
+  componentWillMount(){
+    console.log("componentWillMount");
+    document.addEventListener('keydown', this.handleKeyPress, false);
+  }
+
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
+    document.removeEventListener('keydown', this.handleKeyPress, false);
   }
 
   componentDidMount() {
@@ -40,33 +51,30 @@ class CarouselTimeline extends React.Component {
     this.itemDiv[0].childNodes[1].setAttribute("style","border:3px solid "+this.slideState.focusingColor);
   }
 
+  componentWillReceiveProps(nextProps){
 
+  }
+
+
+///////////////////////////////////////////////////////////////////
   handleMouseDown(e) {
-    console.log("handleMouseDown"+e.clientX);
     this.mouseState.isClick = true;
     this.mouseState.startX = e.clientX;
+    e.preventDefault();
   }
   handleMouseMove(e){
-    if(this.mouseState.isClick) {
-      this.mouseState.nowX = e.clientX;
-      console.log("handleMouseMove");
-      this.moveTimeline(this.mouseState.nowX - this.mouseState.startX);
-    }
-    
-    
+    if (this.mouseState.isClick) this.mouseState.nowX = e.clientX;
   }
-  handleMouseUp(e){
-    console.log("handleMouseUp");
+  
+  handleMouseUp(){
+    this.mouseState.nowX > this.mouseState.startX ? this.handleOnLeftBtn() : this.handleOnRightBtn()
     this.mouseState.isClick = false;
   }
-  handleMouseOut(e){
-    console.log("handleMouseOut");
+  handleMouseOut(){
     this.mouseState.isClick = false;
-    
   }
 
   handleOnRightBtn(){
-    console.log("handleOnRightBtn");
     if(this.state.idx<this.slideState.maxSlide-1){
       this.setState((prevState) => ({
         idx : prevState.idx + 1
@@ -76,13 +84,22 @@ class CarouselTimeline extends React.Component {
     } 
   }
   handleOnLeftBtn(){
-    console.log("handleOnLeftBtn");
     if(this.state.idx>0){
       this.setState((prevState) => ({
         idx : prevState.idx - 1
       }));
       this.slideState.idx--;
       this.moveTimeline(1);
+    }
+  }
+
+  handleKeyPress(e){
+    if(e.key === "ArrowRight"){
+      this.handleOnRightBtn();
+    }else if(e.key === "ArrowLeft"){
+      this.handleOnLeftBtn();
+    }else{
+      return;
     }
   }
 
@@ -107,7 +124,7 @@ class CarouselTimeline extends React.Component {
     const { contents } = this.state;
     const cList = contents.map(
       (content,i) => (
-        <div className="item" ref={r => this.itemDiv[i]= r} key={i}> 
+        <div className="item" ref={r => this.itemDiv[i]= r} key={i} > 
           <div className="mediaWrap">
             {content.mediaType==='image'?<img src={content.mediaSrc} alt={content.mediaSrc} />:<video src={content.mediaSrc} controls/>}
           </div>
@@ -119,14 +136,14 @@ class CarouselTimeline extends React.Component {
     );
     return (
       <React.Fragment>
-        <div className="outBox">
+        <div className="outBox" >
           <div className="innerBox" ref={this.contDiv}>
-            <div className="cardAll noselect" ref={this.tlDiv}
-              // onMouseDown ={e => this.handleMouseDown(e)}
-              // onMouseMove={e => this.handleMouseMove(e)}
-              // onMouseUp={e => this.handleMouseUp(e)}
-              // onMouseOut={e => this.handleMouseOut(e)}
+            <div className="cardAll" ref={this.tlDiv} 
+              onMouseDown ={e => this.handleMouseDown(e)}
               onMouseMove={e => this.handleMouseMove(e)}
+              onMouseUp={e => this.handleMouseUp(e)}
+              onMouseOut={e => this.handleMouseOut(e)}
+              tabIndex="0"
               >
               {cList}
             </div>
