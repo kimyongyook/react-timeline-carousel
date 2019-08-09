@@ -5,7 +5,7 @@ class CarouselTimeline extends React.Component {
   constructor(props){
     super(props);
     this.tlDiv = React.createRef();
-    this.itemDiv =[]; //React.createRef();
+    this.itemDiv =[];
 
     this.state = {
       contents : this.props.data
@@ -20,7 +20,6 @@ class CarouselTimeline extends React.Component {
       currentX : 0
       ,idx : 0
       ,maxSlide : this.state.contents.length
-      ,focusingColor : "rgba(253, 0, 0, 0.7);"
     }
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -47,16 +46,14 @@ class CarouselTimeline extends React.Component {
   componentDidMount() {
     console.log("componentDidMount");
     
-    this.itemDiv[0].childNodes[0].setAttribute("style","border:3px solid "+this.slideState.focusingColor);
-    this.itemDiv[0].childNodes[1].setAttribute("style","border:3px solid "+this.slideState.focusingColor);
+    this.itemDiv[0].childNodes[0].setAttribute("style","width:60%; box-shadow : 0px 10px 5px rgb(124, 120, 120);");
+    this.itemDiv[0].childNodes[1].setAttribute("style","display:block; box-shadow : 10px 10px 5px rgb(124, 120, 120);");
   }
 
   componentWillReceiveProps(nextProps){
 
   }
 
-
-///////////////////////////////////////////////////////////////////
   handleMouseDown(e) {
     this.mouseState.isClick = true;
     this.mouseState.startX = e.clientX;
@@ -112,12 +109,11 @@ class CarouselTimeline extends React.Component {
   focusItem(direction){
     console.log(this.slideState.idx+"::"+this.slideState.maxSlide);
     if (this.slideState.idx+direction>=0 && this.slideState.idx+direction < this.slideState.maxSlide) {
-      this.itemDiv[this.slideState.idx+direction].childNodes[0].setAttribute("style","none;");
-      this.itemDiv[this.slideState.idx+direction].childNodes[1].setAttribute("style","none;");
+      this.itemDiv[this.slideState.idx+direction].childNodes[0].setAttribute("style","");
+      this.itemDiv[this.slideState.idx+direction].childNodes[1].setAttribute("style","display:none;");
     }
-
-    this.itemDiv[this.slideState.idx].childNodes[0].setAttribute("style","border:3px solid "+this.slideState.focusingColor);
-    this.itemDiv[this.slideState.idx].childNodes[1].setAttribute("style","border:3px solid "+this.slideState.focusingColor);
+    this.itemDiv[this.slideState.idx].childNodes[0].setAttribute("style","width:60%; box-shadow : 0px 10px 5px rgb(124, 120, 120);");
+    this.itemDiv[this.slideState.idx].childNodes[1].setAttribute("style","display:block; box-shadow : 10px 10px 5px rgb(124, 120, 120);");
   }
 
   render(){
@@ -125,11 +121,21 @@ class CarouselTimeline extends React.Component {
     const cList = contents.map(
       (content,i) => (
         <div className="item" ref={r => this.itemDiv[i]= r} key={i} > 
-          <div className="mediaWrap">
+          <div className="mediaWrap" onMouseDown ={e => this.handleMouseDown(e)}
+              onMouseMove={e => this.handleMouseMove(e)}
+              onMouseUp={e => this.handleMouseUp(e)}
+              onMouseOut={e => this.handleMouseOut(e)}>
             {content.mediaType==='image'?<img src={content.mediaSrc} alt={content.mediaSrc} />:<video src={content.mediaSrc} controls/>}
           </div>
           <div className="contentsWrap">
-            <span>{content.textSrc}</span>
+            <div className="profileWrap">
+              <div className="imgProfile" style={{backgroundImage : (content.profile.profileImgSrc!==''&&'url('+content.profile.profileImgSrc+')')}}></div>
+              <div className="nameProfile"><p>{content.profile.profileName}</p><pre>{content.profile.profileIntro}</pre></div>
+            </div>
+            <hr/>
+            <div className="textWrap">
+              <pre>{content.boardContent.textSrc}</pre>
+            </div>
           </div>
         </div >
       )
@@ -138,13 +144,7 @@ class CarouselTimeline extends React.Component {
       <React.Fragment>
         <div className="outBox" >
           <div className="innerBox" ref={this.contDiv}>
-            <div className="cardAll" ref={this.tlDiv} 
-              onMouseDown ={e => this.handleMouseDown(e)}
-              onMouseMove={e => this.handleMouseMove(e)}
-              onMouseUp={e => this.handleMouseUp(e)}
-              onMouseOut={e => this.handleMouseOut(e)}
-              tabIndex="0"
-              >
+            <div className="cardAll" ref={this.tlDiv}>
               {cList}
             </div>
           </div>

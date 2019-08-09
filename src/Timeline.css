@@ -65,8 +65,8 @@
 
 .cardAll .item{
     position: relative;
-    min-width : 500px;
-    height: 100%;
+    min-width : 700px;
+    height: 90%;
     padding-left: 25px;
     padding-right: 25px;
 }
@@ -74,9 +74,9 @@
 
 .cardAll .item .mediaWrap{
     position: relative;
-    border-radius: 10px;
+    border-radius: 10px 0px 0px 10px;
     float: left;
-    width:65%;
+    width:60%;
     height: 95%;
     background-color: rgba(0, 0, 0, 0.7);
     box-sizing: border-box;
@@ -101,11 +101,57 @@
 
 
 .cardAll .item .contentsWrap{
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 0px;
     float:right;
-    width: 35%;
+    width: 40%;
     height: 95%;
     background-color: white;
     background-clip : content-box;
     box-sizing: border-box;
+    display:none;
+}
+
+.contentsWrap .profileWrap {
+    padding : 10px;
+    max-width: 100%;
+    display:flex;
+}
+
+.contentsWrap .profileWrap .imgProfile{
+    width: 70px;
+    height: 70px;
+    background-image: url(./img/profile.jpg);
+    background-size: 70px 70px;
+    border-radius: 50%; 
+    border:1px solid rgb(0,0,0);
+    box-sizing:border-box;
+}
+.contentsWrap .profileWrap .nameProfile{
+    padding: 10px;
+    width: 70%;
+    height: 70px;
+    box-sizing:border-box;
+}
+.nameProfile > p {
+    margin:auto;
+    color:rgb(5, 5, 212);
+    font-weight : 700;
+    font-size: 17px;
+}
+.nameProfile > pre {
+    margin:auto;
+    color:rgb(99, 99, 116);
+    font-weight : 700;
+    font-size: 11px;
+}
+
+.contentsWrap .textWrap {
+    padding: 5px 10px;
+    max-width:100%;
+   
+}
+
+.contentsWrap .textWrap > pre {
+    margin : auto;
+    font-size: 15px;
 }
