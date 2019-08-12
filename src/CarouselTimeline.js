@@ -5,6 +5,7 @@ class CarouselTimeline extends React.Component {
   constructor(props){
     super(props);
     this.tlDiv = React.createRef();
+    this.inDiv = React.createRef();
     this.itemDiv =[];
 
     this.state = {
@@ -36,6 +37,8 @@ class CarouselTimeline extends React.Component {
   componentWillMount(){
     console.log("componentWillMount");
     document.addEventListener('keydown', this.handleKeyPress, false);
+
+    
   }
 
   componentWillUnmount(){
@@ -45,14 +48,15 @@ class CarouselTimeline extends React.Component {
 
   componentDidMount() {
     console.log("componentDidMount");
-    
+    this.itemDiv[0].setAttribute("style","min-width:700px;");
     this.itemDiv[0].childNodes[0].setAttribute("style","width:59%; box-shadow : 0px 5px 10px rgb(124, 120, 120);");
     this.itemDiv[0].childNodes[1].setAttribute("style","display:block; box-shadow : 5px 5px 10px rgb(124, 120, 120);");
+
+    console.log(this.inDiv.current.offsetWidth);
+    this.slideState.currentX = this.inDiv.current.offsetWidth/2 - this.itemDiv[0].offsetWidth/2 ;
+    this.tlDiv.current.style.transform="translateX("+this.slideState.currentX+"px)";
   }
 
-  componentWillReceiveProps(nextProps){
-
-  }
 
   handleMouseDown(e) {
     this.mouseState.isClick = true;
@@ -101,17 +105,19 @@ class CarouselTimeline extends React.Component {
   }
 
   moveTimeline(direction){
-    this.slideState.currentX += direction*this.itemDiv[0].offsetWidth;
+    this.slideState.currentX += direction*this.itemDiv[this.slideState.idx].offsetWidth;
     this.focusItem(direction);
     this.tlDiv.current.style.transform="translateX("+this.slideState.currentX+"px)";
   }
 
   focusItem(direction){
-    console.log(this.slideState.idx+"::"+this.slideState.maxSlide);
+    // console.log(this.slideState.idx+"::"+this.slideState.maxSlide);
     if (this.slideState.idx+direction>=0 && this.slideState.idx+direction < this.slideState.maxSlide) {
+      this.itemDiv[this.slideState.idx+direction].setAttribute("style","");
       this.itemDiv[this.slideState.idx+direction].childNodes[0].setAttribute("style","");
       this.itemDiv[this.slideState.idx+direction].childNodes[1].setAttribute("style","display:none;");
     }
+    this.itemDiv[this.slideState.idx].setAttribute("style","min-width:700px;");
     this.itemDiv[this.slideState.idx].childNodes[0].setAttribute("style","width:59%; box-shadow : 0px 5px 10px rgb(124, 120, 120);");
     this.itemDiv[this.slideState.idx].childNodes[1].setAttribute("style","display:block; box-shadow : 5px 5px 10px rgb(124, 120, 120);");
   }
@@ -143,7 +149,7 @@ class CarouselTimeline extends React.Component {
     return (
       <React.Fragment>
         <div className="outBox" >
-          <div className="innerBox">
+          <div className="innerBox" ref={this.inDiv}>
             <div className="cardAll" ref={this.tlDiv}>
               {cList}
             </div>
