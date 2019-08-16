@@ -1,7 +1,10 @@
 import React from 'react';
 import InnerItem from './InnerItem'
+import NaviBtn from './NaviBtn'
+
 import PropTypes from 'prop-types';
 import './Timeline.css'
+
 
 
 class CarouselTimeline extends React.Component {
@@ -9,12 +12,14 @@ class CarouselTimeline extends React.Component {
     super(props);
     this.tlDiv = React.createRef();
     this.inDiv = React.createRef();
-    this.itemDiv = [];
 
     this.state = {
       contents: this.props.data
       , idx: 0
     }
+    
+    this.config = this.props.config;
+
     this.mouseState = {
       isClick: false
       , startX: 0
@@ -24,11 +29,6 @@ class CarouselTimeline extends React.Component {
       currentX: 0
       , idx: 0
       , maxSlide: this.state.contents.length
-    }
-
-    this.config = {
-      fstItemWidth : 700
-      ,anotherItemWidth : 400
     }
 
     this.handleEvent = this.handleEvent.bind(this);
@@ -123,32 +123,41 @@ class CarouselTimeline extends React.Component {
     const { contents } = this.state;
     const cList = contents.map(
       (content, i) => (
-        <InnerItem ref={r => this.itemDiv[i] = r} key={i}
-          item={content} order={i} config={this.config} idx={this.state.idx}/>
+        <InnerItem key={i} item={content} order={i} config={this.config} idx={this.state.idx}/>
       )
     );
     return (
       <React.Fragment>
-        <div className="outBox" >
-          <div className="innerBox" ref={this.inDiv}>
+        {this.config.naviConfig.position === 'outer-top' &&
+        <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{left : this.handleOnLeftBtn, right : this.handleOnRightBtn}} config ={this.config.naviConfig}/>
+        }
+        <div className="outBox"  >
+          <div className="innerBox" style={{height : this.config.containerHeight+"px"}} ref={this.inDiv}>
+            {this.config.naviConfig.position === 'inner-top' &&
+              <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{ left: this.handleOnLeftBtn, right: this.handleOnRightBtn }} config={this.config.naviConfig} />
+            }
             <div className="cardAll" ref={this.tlDiv}
+              style={{height : this.config.itemHeight+"%"}}
+
               onMouseDown={e => this.handleEvent(e)}
               onMouseMove={e => this.handleEvent(e)}
               onMouseUp={e => this.handleEvent(e)}
               onMouseOut={e => this.handleEvent(e)}
+
               onTouchStart={e => this.handleEvent(e)}
               onTouchMove={e => this.handleEvent(e)}
               onTouchEnd={e => this.handleEvent(e)}
             >
               {cList}
             </div>
+            {this.config.naviConfig.position === 'inner-bottom' &&
+              <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{ left: this.handleOnLeftBtn, right: this.handleOnRightBtn }} config={this.config.naviConfig} />
+            }
           </div>
         </div>
-        <div className="navibtn">
-          <div className="navibtnLeft" onClick={this.handleOnLeftBtn}></div>
-          <span>{this.state.idx + 1}/{this.slideState.maxSlide}</span>
-          <div className="navibtnRight" onClick={this.handleOnRightBtn}></div>
-        </div>
+        {this.config.naviConfig.position === 'outer-bottom' &&
+          <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{left : this.handleOnLeftBtn, right : this.handleOnRightBtn}} config ={this.config.naviConfig}/>
+        }
       </React.Fragment>
     );
   }
@@ -203,7 +212,25 @@ CarouselTimeline.defaultProps = {
         textSrc: ""
       }
     }
-  ]
+  ],
+  config: {
+    containerHeight : 400 //400px;
+    ,itemHeight : 90 // 90%
+    ,fstItemWidth : 700
+    , anotherItemWidth: 400
+    , contentType: 'timeline-feed' // ['timeline-feed', 'Media', 'imageOnly', 'VideoOnly']
+    , eventConfig : {
+      mouse : true
+      ,touch : true //for Mobile
+      ,key : true
+    }
+    ,naviConfig : {
+      button: true // [true, false]
+      , paging : true
+      , position: 'outer-bottom' // [inner-top, inner-bottom, outer-top, outer-bottom]
+      , both : false
+    }
+  }
 };
 
 CarouselTimeline.protoTypes = {

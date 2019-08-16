@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CarouselTimeline from './CarouselTimeline'
-import FullScreen from './FullScreen'
 
 let contents = [
   {
@@ -27,11 +26,13 @@ let contents = [
     }
   },
 ]
+
+let itemType = "timeline";
+
 class App extends Component {
   render() {
     return (
-        <CarouselTimeline />
-        // <FullScreen data={contents}/>
+        <CarouselTimeline type={itemType}/>
     );
   }
 }
