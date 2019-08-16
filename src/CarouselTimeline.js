@@ -43,15 +43,18 @@ class CarouselTimeline extends React.Component {
 
   componentWillUnmount() {
     console.log("componentWillUnmount");
-    document.removeEventListener('keydown', this.handleKeyPress, false);
+    if(this.config.eventConfig.key) document.removeEventListener('keydown', this.handleKeyPress, false);
   }
 
   componentDidMount() {
     console.log("componentDidMount");
-    document.addEventListener('keydown', this.handleKeyPress, false);
+    if(this.config.eventConfig.key) document.addEventListener('keydown', this.handleKeyPress, false);
 
     this.slideState.currentX = this.inDiv.current.offsetWidth / 2 - this.config.fstItemWidth / 2;
     this.tlDiv.current.style.transform = "translateX(" + this.slideState.currentX + "px)";
+    let idx = this.props.startIdx-1;
+    if(idx > this.slideState.maxSlide) idx = this.slideState.maxSlide-1;
+    while(idx--) this.handleOnRightBtn();
   }
 
   handleEvent(e) {
@@ -126,38 +129,32 @@ class CarouselTimeline extends React.Component {
         <InnerItem key={i} item={content} order={i} config={this.config} idx={this.state.idx}/>
       )
     );
+    const naviBtn = <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{ left: this.handleOnLeftBtn, right: this.handleOnRightBtn }} config={this.config.naviConfig} />;
+    const isMouse = this.config.eventConfig.mouse;
+    const isTouch = this.config.eventConfig.touch;
     return (
       <React.Fragment>
-        {this.config.naviConfig.position === 'outer-top' &&
-        <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{left : this.handleOnLeftBtn, right : this.handleOnRightBtn}} config ={this.config.naviConfig}/>
-        }
+        {this.config.naviConfig.position === 'outer-top' && naviBtn}
         <div className="outBox"  >
           <div className="innerBox" style={{height : this.config.containerHeight+"px"}} ref={this.inDiv}>
-            {this.config.naviConfig.position === 'inner-top' &&
-              <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{ left: this.handleOnLeftBtn, right: this.handleOnRightBtn }} config={this.config.naviConfig} />
-            }
+            {this.config.naviConfig.position === 'inner-top' && naviBtn}
             <div className="cardAll" ref={this.tlDiv}
               style={{height : this.config.itemHeight+"%"}}
+              onMouseDown={isMouse && (e => this.handleEvent(e))}
+              onMouseMove={isMouse && (e => this.handleEvent(e))}
+              onMouseUp={isMouse && (e => this.handleEvent(e))}
+              onMouseOut={isMouse && (e => this.handleEvent(e))}
 
-              onMouseDown={e => this.handleEvent(e)}
-              onMouseMove={e => this.handleEvent(e)}
-              onMouseUp={e => this.handleEvent(e)}
-              onMouseOut={e => this.handleEvent(e)}
-
-              onTouchStart={e => this.handleEvent(e)}
-              onTouchMove={e => this.handleEvent(e)}
-              onTouchEnd={e => this.handleEvent(e)}
+              onTouchStart={isTouch && (e => this.handleEvent(e))}
+              onTouchMove={isTouch && (e => this.handleEvent(e))}
+              onTouchEnd={isTouch && (e => this.handleEvent(e))}
             >
               {cList}
             </div>
-            {this.config.naviConfig.position === 'inner-bottom' &&
-              <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{ left: this.handleOnLeftBtn, right: this.handleOnRightBtn }} config={this.config.naviConfig} />
-            }
+            {this.config.naviConfig.position === 'inner-bottom' && naviBtn}
           </div>
         </div>
-        {this.config.naviConfig.position === 'outer-bottom' &&
-          <NaviBtn idx={this.state.idx} slideState={this.slideState} e={{left : this.handleOnLeftBtn, right : this.handleOnRightBtn}} config ={this.config.naviConfig}/>
-        }
+        {this.config.naviConfig.position === 'outer-bottom' && naviBtn}
       </React.Fragment>
     );
   }
@@ -178,30 +175,6 @@ CarouselTimeline.defaultProps = {
       }
     },
     {
-      mediaType: "image"
-      , mediaSrc: "https://www.boannews.com/media/upFiles/001(348).jpg"
-      , profile: {
-        profileImgSrc: "http://2.bp.blogspot.com/-fjBhwhSMEp0/VSTL1rylRmI/AAAAAAAAkoQ/WLelllBrNyA/s1600/ba331ea4-8ce2-11e3-8b82-00144feab7de.jpg"
-        , profileName: "Edward Snowden"
-        , profileIntro: "Nice to meet you"
-      }
-      , boardContent: {
-        textSrc: "Several countries, including Ireland, have spurned or delayed asylum requests from Edward Snowden, the former U.S. spy agency contractor wanted for leaking secrets, despite an appeal fr"
-      }
-    },
-    {
-      mediaType: "image"
-      , mediaSrc: "http://www.bodonews.com/imgdata/bodonews_com/201907/2019070547475967.jpg"
-      , profile: {
-        profileImgSrc: "http://thumb.mt.co.kr/06/2018/12/2018121911112342191_1.jpg"
-        , profileName: "신세경"
-        , profileIntro: "Shin Sae kyeong / 진국이 사랑이 누나"
-      }
-      , boardContent: {
-        textSrc: "내일도 구해령❣️"
-      }
-    },
-    {
       mediaType: "video"
       , mediaSrc: "http://techslides.com/demos/sample-videos/small.mp4"
       , profile: {
@@ -218,7 +191,7 @@ CarouselTimeline.defaultProps = {
     ,itemHeight : 90 // 90%
     ,fstItemWidth : 700
     , anotherItemWidth: 400
-    , contentType: 'timeline-feed' // ['timeline-feed', 'Media', 'imageOnly', 'VideoOnly']
+    , contentType: 'timeline-feed' // ['timeline-feed', 'Media', 'image', 'video']
     , eventConfig : {
       mouse : true
       ,touch : true //for Mobile
@@ -230,10 +203,11 @@ CarouselTimeline.defaultProps = {
       , position: 'outer-bottom' // [inner-top, inner-bottom, outer-top, outer-bottom]
       , both : false
     }
-  }
+  },
+  startIdx : 1
 };
 
-CarouselTimeline.protoTypes = {
+CarouselTimeline.propTypes = {
   data: PropTypes.shape({
     mediaType: PropTypes.oneOfType([
       PropTypes.string.isRequired
@@ -248,13 +222,6 @@ CarouselTimeline.protoTypes = {
       textSrc: PropTypes.string.isRequired
     }).isRequired
   }).isRequired
-  , customProp: function (props, propName, componentName) {
-    if (!/matchme/.test(props[propName])) {
-      return new Error(
-        'Invalid prop `' + propName + '` supplied to `' + componentName + '`. Validation failed.'
-      );
-    }
-  }
 }
 
 export default CarouselTimeline;
