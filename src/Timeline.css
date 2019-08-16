@@ -2,15 +2,6 @@
     width : 100%;
 }
 
-.fullscreen {
-    position : absolute;
-    top : 0;
-    left : 0;
-    width : 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
 
 .innerBox{
     border-radius: 10px;
@@ -24,16 +15,10 @@
     overflow-x : hidden;
 }
 
-.fullscreen .innerBox{
-    top:100px;
-    height: 80%;
-    width: 90%;
-    border: 1px solid rgb(225, 228, 232);
-    overflow-x : hidden;
-}
 
 
 .navibtn{
+    padding-top : 20px;
     border-radius: 10px;
     width: 25%;
     height:50px;
@@ -47,20 +32,18 @@
     margin: auto;
     height:50px;
     width:50px;
-    background-image: url(./img/goprevious_103394.svg);
+    background-image: url(./img/left.png);
     background-size: 50px 50px;
     cursor : pointer;
-    position : relative;
 }
 .navibtnRight{
     position : relative;
     margin: auto;
     height:50px;
     width:50px;
-    background-image: url(./img/gonext_103393.svg);
+    background-image: url(./img/right.png);
     background-size: 50px 50px;
     cursor : pointer;
-    position : relative;
 }
 
 .noselect {
