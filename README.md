@@ -81,7 +81,7 @@ class YourComponent extends Component {
 [Online demo](http://kimyongyook.github.io/)
 네.. 아무것도 없습니다. 만들어야되거든요..
 
-### Data
+### data
 
 ````js
 let contents = [
