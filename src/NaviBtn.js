@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import './Timeline.css'
+import './css/Timeline.css'
 
 class NaviBtn extends Component{
     constructor(props){
