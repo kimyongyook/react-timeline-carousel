@@ -41,6 +41,8 @@ It's sooooooooooo easy? isn't it?
 
 ## Usage - 이렇게 사용하세요
 
+[Online demo](https://repl.it/@kimyongyook/React-Timeline-Carousel)
+
 ````js
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -76,12 +78,7 @@ class YourComponent extends Component {
 `````
 
 
-
-
-[Online demo](http://kimyongyook.github.io/)
-네.. 아무것도 없습니다. 만들어야되거든요..
-
-### data
+### Data
 
 ````js
 let contents = [
@@ -127,7 +124,7 @@ let config= {
 ````js
 let startIdx = 1; //start idx 1
 `````
-## Development
+## Development - 뿅
 
 use create-react-app
 
@@ -137,11 +134,11 @@ create-react-app yourApp
 npm start
 ```
 
-## Example
+## Example - 예시에요
 
 `npm start` and then go to `http://localhost:3000/`
 
 
-## License
+## License - 퍼가요~♥
 
 `rc-timeline-carousel` is released under the MIT license.
