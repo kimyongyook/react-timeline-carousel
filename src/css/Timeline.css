@@ -32,7 +32,7 @@
     margin: auto;
     height:50px;
     width:50px;
-    background-image: url(./img/left.png);
+    background-image: url(../img/left.png);
     background-size: 50px 50px;
     cursor : pointer;
 }
@@ -41,7 +41,7 @@
     margin: auto;
     height:50px;
     width:50px;
-    background-image: url(./img/right.png);
+    background-image: url(../img/right.png);
     background-size: 50px 50px;
     cursor : pointer;
 }
@@ -123,7 +123,7 @@
 .contentsWrap .profileWrap .imgProfile{
     width: 70px;
     height: 70px;
-    background-image: url(./img/profile.jpg);
+    background-image: url(../img/profile.jpg);
     background-size: 70px 70px;
     border-radius: 50%; 
     border:1px solid rgb(0,0,0);

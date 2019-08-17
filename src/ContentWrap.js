@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Timeline.css'
+import './css/Timeline.css'
 
 class ContentWrap extends Component{
     constructor(props){

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import MediaWrap from './MediaWrap'
 import ContentWrap from './ContentWrap'
-import './Timeline.css'
+import './css/Timeline.css'
 
 class InnerItem extends Component{
     constructor(props){
