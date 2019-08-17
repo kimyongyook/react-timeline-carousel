@@ -18,11 +18,11 @@ UI Component in the SNS form of Timeline Feed Slider for Developer with REACT
 제가 IU를 좋아해서..
 팬입니다..
 
-<img src="https://user-images.githubusercontent.com/45239851/63210554-e1a53a80-c12a-11e9-9126-84b9aabf9c53.JPG" width="100%"/>
+<img src="https://user-images.githubusercontent.com/45239851/63210554-e1a53a80-c12a-11e9-9126-84b9aabf9c53.JPG" width="600"/>
 
-<img src="https://media.giphy.com/media/h5KkauDFxsGVcoWWuE/giphy.gif" width="100%"/>
+<img src="https://media.giphy.com/media/h5KkauDFxsGVcoWWuE/giphy.gif" width="600"/>
 
-<img src="https://media.giphy.com/media/KGM9tCohNk3yImmNJm/giphy.gif" width="100%"/>
+<img src="https://media.giphy.com/media/KGM9tCohNk3yImmNJm/giphy.gif" width="600"/>
 
 
 ##  Features - 브라우저 지원은 이렇습니다
@@ -41,7 +41,7 @@ It's sooooooooooo easy? isn't it?
 
 ## Usage - 이렇게 사용하세요
 
-
+[Online demo](https://repl.it/@kimyongyook/React-Timeline-Carousel)
 
 ````js
 import React from 'react';
@@ -54,10 +54,6 @@ ReactDOM.render(
     <CarouselTimeline />
 , document.getElementById('root'));
 `````
-
-## Link to DEMO - 이곳에서 사용해 보세요
-
-[Online demo](https://repl.it/@kimyongyook/React-Timeline-Carousel)
 
 ## Parameter
 
