@@ -18,11 +18,11 @@ UI Component in the SNS form of Timeline Feed Slider for Developer with REACT
 제가 IU를 좋아해서..
 팬입니다..
 
-<img src="https://user-images.githubusercontent.com/45239851/63210554-e1a53a80-c12a-11e9-9126-84b9aabf9c53.JPG" width="600"/>
+<img src="https://user-images.githubusercontent.com/45239851/63210554-e1a53a80-c12a-11e9-9126-84b9aabf9c53.JPG" width="100%"/>
 
-<img src="https://media.giphy.com/media/h5KkauDFxsGVcoWWuE/giphy.gif" width="600"/>
+<img src="https://media.giphy.com/media/h5KkauDFxsGVcoWWuE/giphy.gif" width="100%"/>
 
-<img src="https://media.giphy.com/media/KGM9tCohNk3yImmNJm/giphy.gif" width="600"/>
+<img src="https://media.giphy.com/media/KGM9tCohNk3yImmNJm/giphy.gif" width="100%"/>
 
 
 ##  Features - 브라우저 지원은 이렇습니다
@@ -41,6 +41,8 @@ It's sooooooooooo easy? isn't it?
 
 ## Usage - 이렇게 사용하세요
 
+
+
 ````js
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -52,6 +54,10 @@ ReactDOM.render(
     <CarouselTimeline />
 , document.getElementById('root'));
 `````
+
+## Link to DEMO - 이곳에서 사용해 보세요
+
+[Online demo](https://repl.it/@kimyongyook/React-Timeline-Carousel)
 
 ## Parameter
 
@@ -75,11 +81,6 @@ class YourComponent extends Component {
 }
 `````
 
-
-
-
-[Online demo](http://kimyongyook.github.io/)
-네.. 아무것도 없습니다. 만들어야되거든요..
 
 ### Data
 
@@ -127,7 +128,7 @@ let config= {
 ````js
 let startIdx = 1; //start idx 1
 `````
-## Development
+## Development - 뿅
 
 use create-react-app
 
@@ -137,11 +138,11 @@ create-react-app yourApp
 npm start
 ```
 
-## Example
+## Example - 예시에요
 
 `npm start` and then go to `http://localhost:3000/`
 
 
-## License
+## License - 퍼가요~♥
 
 `rc-timeline-carousel` is released under the MIT license.
