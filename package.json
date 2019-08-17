@@ -1,6 +1,6 @@
 {
   "name": "rc-timeline-carousel",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "description": "UI Component in the SNS form of Timeline Feed Slider for Developer with REACT",
   "keywords": [
     "react",
@@ -18,10 +18,9 @@
   ],
   "main": "build/index.js",
   "style": "./css/Timeline.css",
-  "homepage": "http://github.com/kimyongyook/react-timeline-carousel",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kimyongyook/react-timeline-carousel.git"
+    "url": "git@github.com:kimyongyook/react-timeline-carousel.git"
   },
   "bugs": {
     "url": "http://github.com/kimyongyook/react-timeline-carousel/issues"
